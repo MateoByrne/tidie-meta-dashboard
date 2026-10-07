@@ -1,5 +1,7 @@
 # Tidie · Meta Ads Performance Dashboard
 
+**Live demo:** https://tidie-meta-dashboard.vercel.app
+
 A one-page performance dashboard for **Tidie**, an Argentine e-commerce brand, built on real Meta Ads data (Nov 2 – Dec 24, 2025, in ARS).
 
 It answers the questions a media buyer asks every morning:
