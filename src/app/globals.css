@@ -1,26 +1,78 @@
 @import "tailwindcss";
 
+/* Design tokens — light by default, dark from the OS setting.
+   Series colors: testing = categorical slot 1 (blue), scaling = slot 2 (orange). */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  color-scheme: light;
+  --page: #f6f6f3;
+  --surface: #fcfcfb;
+  --ink: #0b0b0b;
+  --ink-2: #52514e;
+  --ink-muted: #75736e;
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+  --border: rgba(11, 11, 11, 0.1);
+  --wash: rgba(11, 11, 11, 0.04);
+  --testing: #2a78d6;
+  --scaling: #eb6834;
+  --neutral-line: #52514e;
+  --good: #006300;
+  --critical: #d03b3b;
+  --warning: #fab219;
+  --critical-wash: rgba(208, 59, 59, 0.08);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    color-scheme: dark;
+    --page: #0d0d0d;
+    --surface: #1a1a19;
+    --ink: #ffffff;
+    --ink-2: #c3c2b7;
+    --ink-muted: #8f8d86;
+    --grid: #2c2c2a;
+    --axis: #383835;
+    --border: rgba(255, 255, 255, 0.1);
+    --wash: rgba(255, 255, 255, 0.05);
+    --testing: #3987e5;
+    --scaling: #d95926;
+    --neutral-line: #c3c2b7;
+    --good: #0ca30c;
+    --critical: #e66767;
+    --warning: #fab219;
+    --critical-wash: rgba(230, 103, 103, 0.12);
   }
 }
 
+@theme inline {
+  --color-page: var(--page);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-muted: var(--ink-muted);
+  --color-grid: var(--grid);
+  --color-line: var(--border);
+  --color-wash: var(--wash);
+  --color-testing: var(--testing);
+  --color-scaling: var(--scaling);
+  --color-good: var(--good);
+  --color-critical: var(--critical);
+  --color-warning: var(--warning);
+  --color-critical-wash: var(--critical-wash);
+  --font-sans: var(--font-geist-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--page);
+  color: var(--ink);
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Recharts: no focus box around the whole SVG on click */
+.recharts-wrapper:focus,
+.recharts-surface:focus {
+  outline: none;
 }
