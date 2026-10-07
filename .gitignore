@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+!.env.example
+
+# raw Meta Ads exports (real business data — kept out of the repo)
+/data/*.csv
