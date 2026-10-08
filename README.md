@@ -13,6 +13,14 @@ It answers the questions a media buyer asks every morning:
 - **When did something go wrong?** Automatic alerts for days where CPA exceeded the trailing 7-day CPA by more than 30%.
 - All of it filterable by date range.
 
+### Interactions
+
+- **Click a campaign** in the table to filter KPIs, daily charts and alerts to it (click again to clear).
+- **KPI tiles** compare against the previous period of equal length (▲▼, colored by whether the change is good) and show a daily sparkline.
+- **Alert days are marked** on the daily chart; click an alert, or any day on the charts, to pin it across both charts.
+- **Toggle ROAS / CPA** on the lower daily chart.
+- **Tune the alert rule live:** threshold (10–100%) and baseline window (7 or 14 days).
+
 **Headline from the data:** the scaling campaign ran at a **30% lower CPA** (AR$ 36.6K vs. AR$ 52.0K) and **42% higher ROAS** (2.63x vs. 1.84x) than testing, while absorbing 61% of the budget.
 
 ## Stack
