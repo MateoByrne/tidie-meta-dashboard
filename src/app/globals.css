@@ -20,6 +20,9 @@
   --critical: #d03b3b;
   --warning: #fab219;
   --critical-wash: rgba(208, 59, 59, 0.08);
+  --good-wash: rgba(12, 163, 12, 0.08);
+  --revenue: #1baf7a; /* categorical slot 3 (aqua) */
+  --revenue-ink: #0d7a54;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -41,6 +44,9 @@
     --critical: #e66767;
     --warning: #fab219;
     --critical-wash: rgba(230, 103, 103, 0.12);
+    --good-wash: rgba(12, 163, 12, 0.14);
+    --revenue: #199e70;
+    --revenue-ink: #3cc999;
   }
 }
 
@@ -59,6 +65,9 @@
   --color-critical: var(--critical);
   --color-warning: var(--warning);
   --color-critical-wash: var(--critical-wash);
+  --color-good-wash: var(--good-wash);
+  --color-revenue: var(--revenue);
+  --color-revenue-ink: var(--revenue-ink);
   --font-sans: var(--font-geist-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
@@ -76,3 +85,4 @@ body {
 .recharts-surface:focus {
   outline: none;
 }
+

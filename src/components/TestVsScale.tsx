@@ -6,6 +6,7 @@ import { TYPE_LABEL, byType, change, cpa, ctr, roas, weeklyByType } from "@/lib/
 import type { Money } from "@/lib/format";
 import { int, money as fmtMoney, compact, convert, moneyCompact, pct, ratio, shortDate, signedPct } from "@/lib/format";
 import { Card, LegendItem, Section, TooltipBox } from "./ui";
+import CpaDriversPanel from "./CpaDriversPanel";
 
 const axis = { stroke: "var(--axis)", fontSize: 11, tickLine: false, tick: { fill: "var(--ink-muted)" } };
 
@@ -42,6 +43,7 @@ export default function TestVsScale({ rows, money }: { rows: Row[]; money: Money
         <TypeCard type="scaling" t={t.scaling} money={money} deltaVs={both ? t.testing : undefined} />
         <WeeklyCpa weekly={weekly} money={money} />
       </div>
+      {both && <CpaDriversPanel rows={rows} money={money} />}
     </Section>
   );
 }

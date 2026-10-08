@@ -13,6 +13,13 @@ It answers the questions a media buyer asks every morning:
 - **When did something go wrong?** Automatic alerts for days where CPA exceeded the trailing 7-day CPA by more than 30%.
 - All of it filterable by date range.
 
+### Analysis views
+
+- **Key takeaways:** four plain-language findings computed from the data and the active filters (testing vs. scaling, what drives the CPA gap, trend, alerts).
+- **Cumulative spend vs. revenue:** running totals; the gap between the lines is revenue generated above ad spend.
+- **Funnel and CPA drivers:** impressions → link clicks → purchases per campaign type, and the decomposition CPA = CPM ÷ (1000 × CTR × CVR). It shows that scaling paid a higher CPM (+17%) but won on CTR (+30%) and conversion rate (+28%), netting a 30% lower CPA.
+- **Campaign table:** sortable, with spend share, CPM, CPC, CTR and CVR; ROAS and CPA colored against the account total.
+
 ### Interactions
 
 - **Click a campaign** in the table to filter KPIs, daily charts and alerts to it (click again to clear).

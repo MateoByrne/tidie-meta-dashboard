@@ -11,6 +11,8 @@ import DailyCharts from "./DailyCharts";
 import TestVsScale from "./TestVsScale";
 import CampaignTable from "./CampaignTable";
 import Alerts from "./Alerts";
+import Insights from "./Insights";
+import CumulativeChart from "./CumulativeChart";
 
 export const DEFAULT_FX = 1450;
 
@@ -93,10 +95,21 @@ export default function Dashboard({ rows }: { rows: Row[] }) {
         ]}
       />
 
+      <Insights
+        allInRange={filtered}
+        scopedInRange={scopedInRange}
+        scopedPrev={scopedPrev}
+        prevRange={prev}
+        range={range}
+        alerts={alerts}
+        campaign={campaign}
+        money={money}
+      />
       <KpiTiles rows={scopedInRange} prevRows={scopedPrev} prevRange={prev} daily={daily} money={money} />
       <div ref={chartsRef} className="scroll-mt-44">
         <DailyCharts daily={daily} alerts={alerts} highlight={highlight} onDayClick={showDay} money={money} />
       </div>
+      <CumulativeChart daily={daily} money={money} />
       <TestVsScale rows={filtered} money={money} />
       <CampaignTable rows={filtered} money={money} selected={campaign} onSelect={toggleCampaign} />
       <Alerts

@@ -44,6 +44,10 @@ export function sum(rows: Row[]): Totals {
 export const roas = (t: Totals) => (t.spend > 0 ? t.revenue / t.spend : null);
 export const cpa = (t: Totals) => (t.purchases > 0 ? t.spend / t.purchases : null);
 export const ctr = (t: Totals) => (t.impressions > 0 ? t.clicks / t.impressions : null);
+export const cpm = (t: Totals) => (t.impressions > 0 ? (t.spend / t.impressions) * 1000 : null);
+export const cpc = (t: Totals) => (t.clicks > 0 ? t.spend / t.clicks : null);
+/** Conversion rate: purchases per link click. */
+export const cvr = (t: Totals) => (t.clicks > 0 ? t.purchases / t.clicks : null);
 
 /** Relative change from `base` to `value` (e.g. -0.3 = 30% lower). */
 export const change = (value: number | null, base: number | null) =>
@@ -253,4 +257,50 @@ export function cpaAlerts(
     });
   }
   return alerts.sort((a, b) => b.date.localeCompare(a.date));
+}
+
+// ---------- CPA drivers ----------
+
+/**
+ * CPA = CPM ÷ (1000 × CTR × CVR). Comparing the three drivers between two sets of rows
+ * tells you WHY CPA moved: cheaper/pricier reach, better/worse click-through, or better/worse conversion.
+ */
+export interface CpaDrivers {
+  cpm: number | null;
+  ctr: number | null;
+  cvr: number | null;
+  cpa: number | null;
+}
+
+export const drivers = (t: Totals): CpaDrivers => ({ cpm: cpm(t), ctr: ctr(t), cvr: cvr(t), cpa: cpa(t) });
+
+/**
+ * Effect of each driver on CPA, as a CPA multiplier (0.8 = that driver alone cut CPA by 20%).
+ * The three effects multiply to the total CPA change.
+ */
+export function driverEffects(to: CpaDrivers, from: CpaDrivers) {
+  const ok = (a: number | null, b: number | null): a is number => a !== null && b !== null && a > 0 && b > 0;
+  return {
+    cpm: ok(to.cpm, from.cpm) ? to.cpm / from.cpm! : null, // higher CPM → higher CPA
+    ctr: ok(to.ctr, from.ctr) ? from.ctr! / to.ctr : null, // higher CTR → lower CPA
+    cvr: ok(to.cvr, from.cvr) ? from.cvr! / to.cvr : null, // higher CVR → lower CPA
+  };
+}
+
+// ---------- cumulative ----------
+
+export interface CumulativePoint {
+  date: string;
+  spend: number;
+  revenue: number;
+}
+
+export function cumulative(daily: DailyPoint[]): CumulativePoint[] {
+  let spend = 0;
+  let revenue = 0;
+  return daily.map((d) => {
+    spend += d.spend;
+    revenue += d.revenue;
+    return { date: d.date, spend, revenue };
+  });
 }
