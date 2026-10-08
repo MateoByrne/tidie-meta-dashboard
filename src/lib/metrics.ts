@@ -66,6 +66,12 @@ export function eachDay(from: string, to: string): string[] {
 export const inRange = (rows: Row[], from: string, to: string) =>
   rows.filter((r) => r.date >= from && r.date <= to);
 
+/** The range of equal length right before [from, to], e.g. Dec 1–31 → Oct 31–Nov 30. */
+export function previousRange(from: string, to: string) {
+  const length = eachDay(from, to).length;
+  return { from: addDays(from, -length), to: addDays(from, -1) };
+}
+
 function groupBy<K>(rows: Row[], key: (r: Row) => K): Map<K, Row[]> {
   const m = new Map<K, Row[]>();
   for (const r of rows) {
@@ -86,8 +92,11 @@ export interface DailyPoint {
   spend: number;
   purchases: number;
   revenue: number;
+  impressions: number;
+  clicks: number;
   roas: number | null;
   cpa: number | null;
+  ctr: number | null;
 }
 
 /** One point per calendar day in [from, to], including days with no activity. */
@@ -103,8 +112,11 @@ export function dailySeries(rows: Row[], from: string, to: string): DailyPoint[]
       spend: t.spend,
       purchases: t.purchases,
       revenue: t.revenue,
+      impressions: t.impressions,
+      clicks: t.clicks,
       roas: roas(t),
       cpa: cpa(t),
+      ctr: ctr(t),
     };
   });
 }

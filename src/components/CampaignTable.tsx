@@ -4,7 +4,17 @@ import type { Money } from "@/lib/format";
 import { int, money as fmtMoney, pct, ratio, shortDate } from "@/lib/format";
 import { Card, Section, TypeBadge } from "./ui";
 
-export default function CampaignTable({ rows, money }: { rows: Row[]; money: Money }) {
+export default function CampaignTable({
+  rows,
+  money,
+  selected,
+  onSelect,
+}: {
+  rows: Row[];
+  money: Money;
+  selected: string | null;
+  onSelect: (campaign: string) => void;
+}) {
   const campaigns = byCampaign(rows).filter((c) => c.spend > 0 || c.purchases > 0);
   const total = sum(rows);
 
@@ -12,7 +22,7 @@ export default function CampaignTable({ rows, money }: { rows: Row[]; money: Mon
   const td = "px-4 py-3 text-right tabular whitespace-nowrap";
 
   return (
-    <Section title="Campaigns" subtitle="Sorted by spend. ROAS, CPA and CTR are computed over the selected range.">
+    <Section title="Campaigns" subtitle="Click a campaign to filter the KPIs, daily charts and alerts to it. Click again to clear.">
       <Card className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead className="border-b border-line">
@@ -29,9 +39,25 @@ export default function CampaignTable({ rows, money }: { rows: Row[]; money: Mon
           </thead>
           <tbody className="divide-y divide-line">
             {campaigns.map((c) => (
-              <tr key={c.campaign} className="hover:bg-wash">
-                <td className="px-4 py-3">
-                  <div className="font-medium text-ink">{c.campaign}</div>
+              <tr
+                key={c.campaign}
+                onClick={() => onSelect(c.campaign)}
+                aria-selected={selected === c.campaign}
+                className={`cursor-pointer transition-opacity hover:bg-wash ${
+                  selected === c.campaign ? "bg-wash" : selected ? "opacity-45 hover:opacity-80" : ""
+                }`}
+              >
+                <td className={`px-4 py-3 ${selected === c.campaign ? "shadow-[inset_3px_0_0_var(--ink)]" : ""}`}>
+                  <button
+                    type="button"
+                    className="text-left font-medium text-ink underline-offset-2 hover:underline"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onSelect(c.campaign);
+                    }}
+                  >
+                    {c.campaign}
+                  </button>
                   <div className="mt-0.5 flex items-center gap-2 text-xs text-ink-muted">
                     <TypeBadge type={c.type} />
                     <span>

@@ -16,6 +16,8 @@ export default function Controls({
   onCurrency,
   fx,
   onFx,
+  campaign,
+  onClearCampaign,
 }: {
   bounds: { min: string; max: string };
   range: Range;
@@ -25,6 +27,8 @@ export default function Controls({
   onCurrency: (c: Currency) => void;
   fx: number;
   onFx: (fx: number) => void;
+  campaign: string | null;
+  onClearCampaign: () => void;
 }) {
   const segment = (active: boolean) =>
     `rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
@@ -69,6 +73,19 @@ export default function Controls({
           />
         </div>
       </div>
+
+      {/* Active campaign filter */}
+      {campaign && (
+        <button
+          type="button"
+          onClick={onClearCampaign}
+          className="inline-flex items-center gap-2 rounded-full bg-ink px-3 py-1.5 text-sm font-medium text-surface"
+          title="Clear campaign filter"
+        >
+          Campaign: {campaign}
+          <span aria-hidden className="text-base leading-none">×</span>
+        </button>
+      )}
 
       {/* Currency */}
       <div className="flex items-center gap-3 sm:ml-auto">
